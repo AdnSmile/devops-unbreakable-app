@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  # Service 1: Aplikasi Python kita
+  web:
+    build: .		# Build ulang dari folder ini
+    ports:
+      - "8000:5000"	# Kita ganti ke port 8000 di laptop		
+    environment:
+      - APP_NAME=The Unbreakable App
+    depends_on:
+      - redis		# Pastikan redis nyala dulu baru web jalan
+
+  # Service 2: Database Redis
+  redis:
+    image: "redis:alpine"	# Ambil image jadi dari internet

@@ -1,0 +1,13 @@
+# Abaikan folder environment python
+venv/
+__pycache__/
+*.pyc
+
+# SANGAT PENTING: Abaikan file rahasia
+.env
+
+# Abaikan file log
+logs/
+
+# Abaikan file sistem Mac
+.DS_Store
