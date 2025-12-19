@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: unbreakable-app-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: unbreakable-app
+  ports:
+    - protocol: TCP
+      port: 80      # Port akses dari luar (browser)
+      targetPort: 5000 # Port aplikasi Python Flask kamu

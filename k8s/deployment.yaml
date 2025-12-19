@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unbreakable-app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: unbreakable-app
+  template:
+    metadata:
+      labels:
+        app: unbreakable-app
+    spec:
+      containers:
+      - name: my-app
+        image: my-python-app:v1
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000

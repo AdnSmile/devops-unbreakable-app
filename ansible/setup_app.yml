@@ -1,0 +1,21 @@
+---
+- name: Setup Server Aplikasi Kita
+  hosts: webservers
+  gather_facts: yes
+
+  tasks:
+    - name: 1. Pastikan folder aplikasi ada
+      file:
+        path: /app
+        state: directory
+        mode: '0755'
+
+    - name: 2. Buat file pesan rahasia di dalam server
+      copy:
+        content: "File ini dibuat otomatis oleh Ansible pada {{ ansible_date_time.iso8601 }}!"
+        dest: /app/rahasia.txt
+
+    - name: 3. Install Flask (Simulasi install software)
+      pip:
+        name: flask
+        state: present
