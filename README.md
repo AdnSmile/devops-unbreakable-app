@@ -81,8 +81,54 @@ You can run this project in two modes:
 Use this for local development.
 ```bash
 # Clone the repo
-git clone [https://github.com/AdnSmile/devops-unbreakable-app.git](https://github.com/AdnSmile/devops-unbreakable-app.git)
+git clone https://github.com/AdnSmile/devops-unbreakable-app.git
 cd devops-unbreakable-app
 
 # Run services
 docker-compose up --build
+```
+Access the app at: `http://localhost:8000`
+
+### Mode 2: Kubernetes (Production Simulation)
+Use this to demonstrate self-healing capabilities.
+*Prerequisite: Minikube & Kubectl installed.*
+
+```bash
+# 1. Start the Cluster
+minikube start
+
+# 2. Point Docker Client to Minikube
+eval $(minikube docker-env)
+
+# 3. Build Image inside the Cluster
+docker build -t my-python-app:v1 .
+
+# 4. Deploy Redis & App
+kubectl apply -f k8s/redis.yaml
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+
+# 5. Access the Application
+minikube service unbreakable-app-service
+```
+
+---
+
+## 🧪 The "Unbreakable" Proof (Self-Healing Demo)
+One of the key features of Kubernetes is resilience. Try killing a Pod while the app is running:
+
+```bash
+# 1. List running pods
+kubectl get pods
+
+# 2. Kill (Delete) one of the app pods
+kubectl delete pod [POD_NAME]
+
+# 3. Watch the magic happen
+kubectl get pods -w
+```
+*Result: Kubernetes will detect the dead pod and immediately spin up a new replacement. The user experiences zero downtime.*
+
+---
+
+**Created as part of my "Zero to Hero" DevOps learning journey.**
